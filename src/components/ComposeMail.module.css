@@ -1,0 +1,21 @@
+.wrapperclass {
+    padding: 1rem;
+    border: 1px solid #ccc;
+
+}
+
+.editorclass {
+    background-color: white;
+    padding: 1rem;
+    border: 1px solid #ccc;
+
+}
+
+.toolbarclass {
+    border: 1px solid #ccc;
+
+}
+
+.composecard{
+    margin:5rem 15rem 15rem 15rem;
+}

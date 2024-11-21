@@ -8,8 +8,8 @@ const AuthContext=React.createContext({
 })
 
 export const AuthProvider=(props)=>{
-    const [token,setToken]=useState('')
-    const [emailId,setEmailId]=useState('')
+    const [token,setToken]=useState(localStorage.getItem('mailToken'))
+    const [emailId,setEmailId]=useState(localStorage.getItem('mailUserId'))
 
     const userIsLoggedIn=!!token;
 
