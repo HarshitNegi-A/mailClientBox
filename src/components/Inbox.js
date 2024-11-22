@@ -7,43 +7,56 @@ const Inbox = () => {
   const [unreadCount, setUnreadCount] = useState(0);
   const [selectedEmail, setSelectedEmail] = useState(null);
 
-  // Replace "@" and "." in email for Firebase key compatibility
   const userEmail=localStorage.getItem('mailUserId')
   const sanitizedEmail = userEmail.replace(/[@.]/g, '_');
 
-  useEffect(() => {
-    const fetchEmails = async () => {
-      try {
-        const response = await fetch(
-          `https://mail-client-box-8c893-default-rtdb.firebaseio.com/emails/received/${sanitizedEmail}.json`
-        );
+  const fetchEmails = async () => {
+    try {
+      const response = await fetch(
+        `https://mail-client-box-8c893-default-rtdb.firebaseio.com/emails/received/${sanitizedEmail}.json`
+      );
 
-        if (!response.ok) {
-          throw new Error('Failed to fetch emails');
-        }
-
-        const data = await response.json();
-        if (data) {
-          const emailsArray = Object.keys(data).map((key) => ({
-            id: key,
-            ...data[key],
-          }));
-
-          setEmails(emailsArray);
-          setUnreadCount(emailsArray.filter((email) => !email.read).length);
-        } else {
-          setEmails([]); // No emails found
-          setUnreadCount(0);
-        }
-      } catch (error) {
-        console.error('Error fetching emails:', error);
-      } finally {
-        setLoading(false);
+      if (!response.ok) {
+        throw new Error('Failed to fetch emails');
       }
-    };
 
+      const data = await response.json();
+      if (data) {
+        const emailsArray = Object.keys(data).map((key) => ({
+          id: key,
+          ...data[key],
+        }));
+
+        // Update state only if there are changes
+        if (emailsArray.length !== emails.length) {
+          setEmails(emailsArray);
+          setUnreadCount(
+            emailsArray.filter((email) => email.unread).length
+          );
+        }
+      } else {
+        setEmails([]);
+        setUnreadCount(0);
+      }
+    } catch (error) {
+      console.error('Error fetching emails:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    
     fetchEmails();
-  }, [sanitizedEmail]);
+
+    const intervalId = setInterval(() => {
+      fetchEmails();
+    }, 2000); 
+
+    
+    return () => clearInterval(intervalId);
+  }, [emails.length]); 
+
 
   const markAsRead = async (emailId) => {
     const email = emails.find((email) => email.id === emailId);
