@@ -77,6 +77,32 @@ const Inbox = () => {
     setSelectedEmail(email);
   };
 
+  const deleteEmail = async (emailId) => {
+    try {
+      const response = await fetch(
+        `https://mail-client-box-8c893-default-rtdb.firebaseio.com/emails/received/${sanitizedEmail}/${emailId}.json`,
+        {
+          method: 'DELETE',
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to delete email');
+      }
+
+      // Update the state locally
+      setEmails((prevEmails) => prevEmails.filter((email) => email.id !== emailId));
+      setUnreadCount((prevCount) =>
+        emails.find((email) => email.id === emailId)?.read ? prevCount : prevCount - 1
+      );
+
+      alert('Email deleted successfully!');
+    } catch (error) {
+      console.error('Error deleting email:', error);
+      alert('Failed to delete email.');
+    }
+  };
+
   return (
     <Fragment>
         <Header/>
@@ -111,6 +137,12 @@ const Inbox = () => {
                     onClick={() => markAsRead(email.id)}
                   >
                     View
+                  </button>
+                  <button
+                    className="btn btn-danger btn-sm ms-2"
+                    onClick={() => deleteEmail(email.id)}
+                  >
+                    Delete
                   </button>
                 </td>
               </tr>

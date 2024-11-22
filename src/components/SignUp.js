@@ -65,6 +65,8 @@ const SignUp = () => {
     }
   };
 
+  
+
   return (
     <Fragment>
       <Container className="mt-5">
