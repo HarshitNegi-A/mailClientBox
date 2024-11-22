@@ -6,6 +6,7 @@ import AuthContext from "../store/auth-context";
 const Header=()=>{
 
     const authCntx=useContext(AuthContext)
+
     console.log(authCntx)
     
     const navi=useNavigate();
@@ -22,8 +23,13 @@ const Header=()=>{
             <Link className={classes.link} to="/" >Home</Link>
             <Link className={classes.link} to="/compose" >Compose</Link>
             <Link className={classes.link} to="/inbox" >Inbox</Link>
+            <Link className={classes.link} to="/sent" >Sent</Link>
             </div>
+            <div>{localStorage.getItem('mailUserId')}
             <button className={classes.button} onClick={handleLogout}>Log Out</button>
+            </div>
+            
+            
         </header>
     )
 }

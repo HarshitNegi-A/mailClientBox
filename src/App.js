@@ -5,6 +5,7 @@ import AuthContext from "./store/auth-context";
 import Home from "./components/Home";
 import ComposeMail from "./components/ComposeMail";
 import Inbox from "./components/Inbox";
+import SentMail from "./components/SentMail";
 
 function App() {
   const authcntx=useContext(AuthContext)
@@ -20,6 +21,10 @@ function App() {
     {
       path:'/inbox',
       element: <Inbox/>
+    },
+    {
+      path:'/sent',
+      element: <SentMail/>
     },
   ])
   return (
