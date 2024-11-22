@@ -52,7 +52,6 @@ const SignUp = () => {
         })
         .then((data) => {
           console.log(data);
-          localStorage.setItem('mailToken',data.idToken)
           authCntx.setToken(data.idToken)
           authCntx.setEmailId(email)
           navi('/')
