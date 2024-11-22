@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, convertToRaw } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import Header from './Header';
 
 const ComposeMail = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -60,7 +61,9 @@ const ComposeMail = () => {
   };
 
   return (
-    <div className="container border p-4">
+    <Fragment>
+      <Header/>
+      <div className="container border p-4">
       <h3>Compose Mail</h3>
 
       {/* From Field */}
@@ -123,6 +126,8 @@ const ComposeMail = () => {
         Send Mail
       </button>
     </div>
+    </Fragment>
+    
   );
 };
 

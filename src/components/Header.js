@@ -20,6 +20,8 @@ const Header=()=>{
         <header className={classes.header}>
             <div >
             <Link className={classes.link} to="/" >Home</Link>
+            <Link className={classes.link} to="/compose" >Compose</Link>
+            <Link className={classes.link} to="/inbox" >Inbox</Link>
             </div>
             <button className={classes.button} onClick={handleLogout}>Log Out</button>
         </header>

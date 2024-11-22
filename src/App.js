@@ -4,6 +4,7 @@ import { useContext } from "react";
 import AuthContext from "./store/auth-context";
 import Home from "./components/Home";
 import ComposeMail from "./components/ComposeMail";
+import Inbox from "./components/Inbox";
 
 function App() {
   const authcntx=useContext(AuthContext)
@@ -15,6 +16,10 @@ function App() {
     {
       path:'/compose',
       element: <ComposeMail/>
+    },
+    {
+      path:'/inbox',
+      element: <Inbox/>
     },
   ])
   return (
